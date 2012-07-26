@@ -127,7 +127,7 @@ def test_inheritance():
     s.insert(b)
     s.insert(bb)
     for obj in s.query(InA).all():
-        assert type(obj) == InC, type(obj)
+        assert isinstance(obj, InC), type(obj)
 
 
 @raises(DocumentException)

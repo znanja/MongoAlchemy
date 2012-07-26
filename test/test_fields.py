@@ -239,8 +239,8 @@ def third_type_wrong_test_unwrap():
 
 def tuple_value_test():
     s = TupleField(IntField(), StringField(), ListField(IntField()))
-    before = (1, '2', [3,3,3])
-    after = [1, '2', [3,3,3]]
+    before = (1, '2', [3, 3, 3])
+    after = [1, '2', [3, 3, 3]]
     assert s.wrap(before) == after, s.wrap(before)
     assert s.unwrap(after) == before, s.unwrap(after)
 
@@ -262,9 +262,9 @@ def enum_wrong_value_test_unwrap():
     EnumField(IntField(), 1, 3).unwrap(2)
 
 def enum_value_test():
-    s = EnumField(ListField(IntField()), [1,2], [3,4])
-    assert s.wrap([1,2]) == [1,2]
-    assert s.unwrap([3,4]) == [3,4]
+    s = EnumField(ListField(IntField()), [1, 2], [3, 4])
+    assert s.wrap([1, 2]) == [1, 2]
+    assert s.unwrap([3, 4]) == [3, 4]
 
 
 # Binary Field

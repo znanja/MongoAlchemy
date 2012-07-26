@@ -6,4 +6,4 @@ class A(Document):
     c = StringField()
 
 a = A.unwrap({'b' : 'some val 1', 'c' : 'some val 2'})
-print a.b, a.c
+print(a.b, a.c)

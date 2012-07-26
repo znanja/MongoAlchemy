@@ -14,7 +14,7 @@ def computed_field_db_test():
     class TestDoc2(Document):
         a = IntField()
         b = IntField()
-        @computed_field(IntField(), deps=[a,b])
+        @computed_field(IntField(), deps=[a, b])
         def a_plus_b(obj):
             return obj['a'] + obj['b']
 
@@ -51,7 +51,7 @@ def computed_field_value_test():
     class TestDoc2(Document):
         a = IntField()
         b = IntField()
-        @computed_field(IntField(), deps=[a,b])
+        @computed_field(IntField(), deps=[a, b])
         def c(obj):
             return 6
     TestDoc2.c.unwrap(6)
@@ -83,7 +83,7 @@ def computed_field_unwrap_test():
     class TestDoc2(Document):
         a = IntField()
         b = IntField()
-        @computed_field(IntField(), deps=[a,b])
+        @computed_field(IntField(), deps=[a, b])
         def c(obj):
             return 'some-bad-value'
     TestDoc2.c.unwrap('bad-value')
@@ -102,7 +102,7 @@ def computed_field_wrap_test():
     class TestDoc2(Document):
         a = IntField()
         b = IntField()
-        @computed_field(IntField(), deps=[a,b])
+        @computed_field(IntField(), deps=[a, b])
         def c(obj):
             return 'some-bad-value'
 
@@ -127,7 +127,7 @@ def computed_field_wrap_test_wrong_type():
     class TestDoc2(Document):
         a = IntField()
         b = IntField()
-        @computed_field(IntField(), deps=[a,b])
+        @computed_field(IntField(), deps=[a, b])
         def c(obj):
             return 'some-bad-value'
 

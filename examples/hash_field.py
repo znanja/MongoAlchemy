@@ -18,13 +18,13 @@ session = Session.connect('mongoalchemy-tutorial')
 session.clear_collection(User)
 
 user = User(password='pw')
-print user.password
+print(user.password)
 user.password = 'newpw'
-print user.password
+print(user.password)
 
 session.insert(user)
 
 loaded_user = session.query(User).one()
 
-print loaded_user.password
-print loaded_user.password
+print(loaded_user.password)
+print(loaded_user.password)

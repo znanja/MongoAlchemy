@@ -270,13 +270,13 @@ def test_update_list():
     s = Session.connect('unit-testing')
     s.clear_collection(TIntListDoc)
 
-    tIntList = TIntListDoc(intlist=[1,2])
+    tIntList = TIntListDoc(intlist=[1, 2])
     s.insert(tIntList)
 
     # pull out of db
     tFetched = s.query(TIntListDoc).one()
 
-    assert sorted([1,2]) == sorted(tFetched.intlist)
+    assert sorted([1, 2]) == sorted(tFetched.intlist)
 
     # append to list, update
     l = tFetched.intlist
@@ -286,11 +286,11 @@ def test_update_list():
     # pull out of db
     tFetched = s.query(TIntListDoc).one()
 
-    assert sorted([1,2,3]) == sorted(tFetched.intlist)
+    assert sorted([1, 2, 3]) == sorted(tFetched.intlist)
 
     tFetched.intlist.remove(1)
     s.update(tFetched)
 
     tFetched = s.query(TIntListDoc).one()
 
-    assert sorted([2,3]) == sorted(tFetched.intlist)
+    assert sorted([2, 3]) == sorted(tFetched.intlist)

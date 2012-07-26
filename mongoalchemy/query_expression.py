@@ -105,7 +105,7 @@ class QueryField(object):
         res = []
         current = self
         
-        while type(current) != type(None):
+        while not isinstance(current, type(None)):
             if current.__matched_index:
                 res.append('$')
             res.append(current.get_type().db_field)
@@ -141,7 +141,7 @@ class QueryField(object):
         """
         return QueryExpression({
             self : {'$within' : {
-                    '$box' : [corner1, corner2],
+                    '$box': [corner1, corner2],
                 }}
             })
     def within_radius(self, x, y, radius):
@@ -151,7 +151,7 @@ class QueryField(object):
         """
         return QueryExpression({
             self : {'$within' : {
-                    '$center' : [[x, y], radius],
+                    '$center': [[x, y], radius],
                 }}
             })
     def within_radius_sphere(self, x, y, radius):
@@ -161,7 +161,7 @@ class QueryField(object):
         """
         return QueryExpression({
             self : {'$within' : {
-                    '$centerSphere' : [[x, y], radius],
+                    '$centerSphere': [[x, y], radius],
                 }}
             })
     def within_polygon(self, polygon):
@@ -174,7 +174,7 @@ class QueryField(object):
         """
         return QueryExpression({
             self : {'$within' : {
-                    '$polygon' : polygon,
+                    '$polygon': polygon,
                 }}
             })
 

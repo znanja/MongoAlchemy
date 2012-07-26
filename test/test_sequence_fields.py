@@ -56,28 +56,28 @@ def set_wrong_type_test_unwrap():
 
 @raises(BadValueException)
 def set_wrong_child_type_test():
-    SetField(StringField()).wrap(set([4]))
+    SetField(StringField()).wrap({4})
 
 @raises(Exception)
 def set_bad_child_type_test():
-    SetField(int).wrap(set([4]))
+    SetField(int).wrap({4})
 
 @raises(BadValueException)
 def set_too_long_test():
-    SetField(StringField(), max_capacity=4).wrap(set([x for x in '12345']))
+    SetField(StringField(), max_capacity=4).wrap({x for x in '12345'})
 
 @raises(BadValueException)
 def set_too_short_test():
-    SetField(StringField(), min_capacity=4).wrap(set([x for x in '123']))
+    SetField(StringField(), min_capacity=4).wrap({x for x in '123'})
 
 def set_just_right_test():
-    SetField(StringField(), min_capacity=3, max_capacity=3).wrap(set([x for x in '123']))
+    SetField(StringField(), min_capacity=3, max_capacity=3).wrap({x for x in '123'})
 
 def set_value_test():
     s = SetField(StringField())
-    foo = set([x for x in '12345'])
+    foo = {x for x in '12345'}
     assert s.unwrap(s.wrap(foo)) == foo
 
 def set_default_test():
     assert SetField(StringField(), default_empty=True).default == set()
-    assert SetField(StringField(), default=set([3])).default == set([3])
+    assert SetField(StringField(), default={3}).default == {3}

@@ -85,7 +85,7 @@ def test_value_type_wrapping():
     q = s.query(User).in_(User.bio, 'MongoAlchemy').query
     assert q == { 'bio' : { '$in' : ['MongoAlchemy'] } }, q
     
-    q = s.query(User).in_(User.bio, set(['MongoAlchemy'])).query
+    q = s.query(User).in_(User.bio, {'MongoAlchemy'}).query
     assert q == { 'bio' : { '$in' : [['MongoAlchemy']] } }, q
 
 def test_value_type_wrapping_2():
@@ -132,9 +132,9 @@ def test_geo():
         index = Index().geo2d('loc', min=-100, max=100)
     s = Session.connect('unit-testing')
     s.clear_collection(Place)
-    s.insert(Place(loc=(1,1), val=2))
-    s.insert(Place(loc=(5,5), val=4))
-    s.insert(Place(loc=(30,30 ), val=5))
+    s.insert(Place(loc=(1, 1), val=2))
+    s.insert(Place(loc=(5, 5), val=4))
+    s.insert(Place(loc=(30, 30 ), val=5))
     x = s.query(Place).filter(Place.loc.near(0, 1))
     assert x.first().val == 2, x.query
 
@@ -167,8 +167,8 @@ def test_geo_haystack():
         index = Index().geo_haystack('loc', bucket_size=100).descending('val')
     s = Session.connect('unit-testing')
     s.clear_collection(Place)
-    s.insert(Place(loc=(1,1), val=2))
-    s.insert(Place(loc=(5,5), val=4))
+    s.insert(Place(loc=(1, 1), val=2))
+    s.insert(Place(loc=(5, 5), val=4))
     
 
 
@@ -233,13 +233,13 @@ def test_or():
 
 def test_in():
     q = Query(T, None)
-    assert q.in_(T.i, 1, 2, 3).query == {'i' : {'$in' : [1,2,3]}}, q.in_(T.i, 1, 2, 3).query
-    assert q.filter(T.i.in_(1, 2, 3)).query == {'i' : {'$in' : [1,2,3]}}
+    assert q.in_(T.i, 1, 2, 3).query == {'i' : {'$in' : [1, 2, 3]}}, q.in_(T.i, 1, 2, 3).query
+    assert q.filter(T.i.in_(1, 2, 3)).query == {'i' : {'$in' : [1, 2, 3]}}
 
 def test_nin():
     q = Query(T, None)
-    assert q.nin(T.i, 1, 2, 3).query == {'i' : {'$nin' : [1,2,3]}}, q.nin(T.i, 1, 2, 3).query
-    assert q.filter(T.i.nin(1, 2, 3)).query == {'i' : {'$nin' : [1,2,3]}}
+    assert q.nin(T.i, 1, 2, 3).query == {'i' : {'$nin' : [1, 2, 3]}}, q.nin(T.i, 1, 2, 3).query
+    assert q.filter(T.i.nin(1, 2, 3)).query == {'i' : {'$nin' : [1, 2, 3]}}
 
 
 # free-form queries

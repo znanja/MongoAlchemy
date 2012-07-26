@@ -9,7 +9,7 @@ class BloodDonor(Document):
     age = IntField(min_value=0)
     
     gender = EnumField(StringField(), 'male', 'female')
-    blood_type = EnumField(StringField(), 'O+','A+','B+','AB+','O-','A-','B-','AB-')
+    blood_type = EnumField(StringField(), 'O+', 'A+', 'B+', 'AB+', 'O-', 'A-', 'B-', 'AB-')
     def __str__(self):
         return '%s %s (%s; Age: %d; Type: %s)' % (self.first_name, self.last_name, 
             self.gender, self.age, self.blood_type)
@@ -34,20 +34,20 @@ session.insert(BloodDonor(first_name='Shirley', last_name='Bennett', age=39, blo
 # Querying
 
 for donor in session.query(BloodDonor).filter(BloodDonor.first_name == 'Jeff'):
-    print donor
+    print(donor)
 
 for donor in session.query(BloodDonor).filter(
     BloodDonor.first_name == 'Jeff', 
     BloodDonor.age < 30):
-   print donor
+   print(donor)
 
 for donor in session.query(BloodDonor).filter(
     BloodDonor.first_name == 'Jeff').filter( 
     BloodDonor.age < 30):
-   print donor
+   print(donor)
 
 query = session.query(BloodDonor).filter(BloodDonor.first_name == 'Jeff', BloodDonor.last_name == 'Jenkins')
 query.inc(BloodDonor.age, 1).set(BloodDonor.blood_type, 'O-').execute()
-print query.one()
+print(query.one())
 
 

@@ -48,14 +48,14 @@ def main():
     with Session.connect('mongoalchemy') as s:
         def print_all():
             for u in s.query(User).filter(User.address.country == 'USA' ):
-                print u
+                print(u)
 
         s.clear_collection(User)
     
         a = Address(street_address='123 4th ave', city='NY', state_province='NY', country='USA')
         u = User(name='jeff', email='jeff@qcircles.net', address=a)
         s.insert(u)
-        print u._id
+        print(u._id)
     
         query = User.address.country == 'USA'
     

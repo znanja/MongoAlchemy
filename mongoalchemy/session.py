@@ -172,7 +172,7 @@ class Session(object):
             for current_op, keys in dirty_ops.items():
                 if key not in keys:
                     continue
-                dirty_ops.setdefault(op,{})[key] = keys[key]
+                dirty_ops.setdefault(op, {})[key] = keys[key]
                 del dirty_ops[current_op][key]
                 if len(dirty_ops[current_op]) == 0:
                     del dirty_ops[current_op]
@@ -285,9 +285,9 @@ class Session(object):
         for index in fm_exp.query.type.get_indexes():
             index.ensure(collection)
         kwargs = {
-            'query' : fm_exp.query.query, 
-            'update' : fm_exp.update_data, 
-            'upsert' : fm_exp.get_upsert(), 
+            'query': fm_exp.query.query, 
+            'update': fm_exp.update_data, 
+            'upsert': fm_exp.get_upsert(), 
         }
         
         if fm_exp.query.get_fields():
@@ -355,13 +355,13 @@ class Session(object):
         self.clear()
 
     def dereference(self, ref):
-        print 'DEREF', ref
+        print('DEREF', ref)
         if isinstance(ref, Document):
             return ref
         assert hasattr(ref, 'type')
                 
         obj = self.cache_read(ref.id)
-        print 'CACHE READ', obj
+        print('CACHE READ', obj)
         if obj is not None:
             return obj
         value = self.db.dereference(ref)

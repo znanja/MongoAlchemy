@@ -67,9 +67,9 @@ from mongoalchemy.util import UNSET
 from mongoalchemy.query_expression import QueryField
 from mongoalchemy.exceptions import BadValueException, FieldNotRetrieved, InvalidConfigException, BadFieldSpecification, MissingValueException
 
-SCALAR_MODIFIERS = set(['$set', '$unset'])
-NUMBER_MODIFIERS = SCALAR_MODIFIERS | set(['$inc'])
-LIST_MODIFIERS = SCALAR_MODIFIERS | set(['$push', '$addToSet', '$pull', '$pushAll', '$pullAll', '$pop'])
+SCALAR_MODIFIERS = {'$set', '$unset'}
+NUMBER_MODIFIERS = SCALAR_MODIFIERS | {'$inc'}
+LIST_MODIFIERS = SCALAR_MODIFIERS | {'$push', '$addToSet', '$pull', '$pushAll', '$pullAll', '$pop'}
 ANY_MODIFIER = LIST_MODIFIERS | NUMBER_MODIFIERS
 
 class FieldMeta(type):
@@ -827,7 +827,7 @@ class SetField(SequenceField):
         ''' Unwraps the elements of ``value`` using ``SetField.item_type`` and
             returns them in a set'''
         self.validate_unwrap(value)
-        return set([self.item_type.unwrap(v, session=session) for v in value])
+        return {self.item_type.unwrap(v, session=session) for v in value}
 
 class AnythingField(Field):
     ''' A field that passes through whatever is set with no validation.  Useful
@@ -1013,8 +1013,8 @@ class KVField(DictField):
             based on either of them
         '''
         return {
-            'k' : self.key_type,
-            'v' : self.value_type,
+            'k': self.key_type,
+            'v': self.value_type,
         }
     
     def _validate_key_wrap(self, key):
@@ -1260,7 +1260,7 @@ class RefField(Field):
         try:
             self.type.validate_unwrap(value)
         except BadValueException, bve:
-            print 'ERROR'
+            print('ERROR')
             self._fail_validation(value, 'RefField invalid', cause=bve)
 
 

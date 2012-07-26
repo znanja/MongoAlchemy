@@ -249,7 +249,7 @@ def test_sort():
     from pymongo import ASCENDING, DESCENDING
     s = get_session()
     sorted_query = s.query(T).ascending(T.i).descending(T.j)
-    assert sorted_query.sort == [('i', ASCENDING),('j', DESCENDING)], sorted_query.sort
+    assert sorted_query.sort == [('i', ASCENDING), ('j', DESCENDING)], sorted_query.sort
     for obj in sorted_query:
         pass
 

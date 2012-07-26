@@ -167,7 +167,7 @@ def test_remove_expression():
 
     ISBN = '3462784290890'
     book = Book(isbn=ISBN, pages=[])
-    for i in range(0,10):
+    for i in range(0, 10):
         book.pages.append(Page(text='p%d' % i, page_num = i))
 
     session.insert(book)
