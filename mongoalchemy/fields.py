@@ -941,7 +941,7 @@ class DictField(Field):
             self._validate_key_unwrap(k)
             try:
                 self.value_type.validate_unwrap(v)
-            except BadValueException, bve:
+            except BadValueException as bve:
                 self._fail_validation(value, 'Bad value for key %s' % k, cause=bve)
         
     def validate_wrap(self, value):
@@ -954,7 +954,7 @@ class DictField(Field):
             self._validate_key_wrap(k)
             try:
                 self.value_type.validate_wrap(v)
-            except BadValueException, bve:
+            except BadValueException as bve:
                 self._fail_validation(value, 'Bad value for key %s' % k, cause=bve)
     
     def wrap(self, value):
@@ -1020,7 +1020,7 @@ class KVField(DictField):
     def _validate_key_wrap(self, key):
         try:
             self.key_type.validate_wrap(key)
-        except BadValueException, bve:
+        except BadValueException as bve:
             self._fail_validation(key, 'Bad value for key', cause=bve)
     
     def validate_unwrap(self, value):
@@ -1041,12 +1041,12 @@ class KVField(DictField):
                 self._fail_validation(value, 'Value had None for a key')
             try:
                 self.key_type.validate_unwrap(k)
-            except BadValueException, bve:
+            except BadValueException as bve:
                 self._fail_validation(value, 'Bad value for KVField key %s' % k, cause=bve)
             
             try:
                 self.value_type.validate_unwrap(v)
-            except BadValueException, bve:
+            except BadValueException as bve:
                 self._fail_validation(value, 'Bad value for KFVield value %s' % k, cause=bve)
         return True
     
@@ -1259,7 +1259,7 @@ class RefField(Field):
             return True
         try:
             self.type.validate_unwrap(value)
-        except BadValueException, bve:
+        except BadValueException as bve:
             print('ERROR')
             self._fail_validation(value, 'RefField invalid', cause=bve)
 
@@ -1349,7 +1349,7 @@ class ComputedField(Field):
         value = self.fun(args)
         try:
             self.computed_type.validate_wrap(value)
-        except BadValueException, bve:
+        except BadValueException as bve:
             self._fail_validation(value, 'Computed Function return a bad value', cause=bve)
         return value
     
@@ -1363,14 +1363,14 @@ class ComputedField(Field):
         ''' Check that ``value`` is valid for unwrapping with ``ComputedField.computed_type``'''
         try:
             self.computed_type.validate_wrap(value)
-        except BadValueException, bve:
+        except BadValueException as bve:
             self._fail_validation(value, 'Bad value for computed field', cause=bve)
     
     def validate_unwrap(self, value):
         ''' Check that ``value`` is valid for unwrapping with ``ComputedField.computed_type``'''
         try:
             self.computed_type.validate_unwrap(value)
-        except BadValueException, bve:
+        except BadValueException as bve:
             self._fail_validation(value, 'Bad value for computed field', cause=bve)
     
     def wrap(self, value):

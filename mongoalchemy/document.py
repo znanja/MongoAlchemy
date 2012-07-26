@@ -391,7 +391,7 @@ class Document(object):
             try:
                 value = getattr(self, name)
                 res[field.db_field] = field.wrap(value)
-            except AttributeError, e:
+            except AttributeError as e:
                 if field.required:
                     raise MissingValueException(name)
         return res
@@ -404,7 +404,7 @@ class Document(object):
             deserialization'''
         try:
             cls.unwrap(obj, fields=fields, session=session)
-        except Exception, e:
+        except Exception as e:
             e_type = type(e).__name__
             cls_name = cls.__name__
             raise BadValueException(cls_name, obj, '%s Exception validating document' % e_type, cause=e)
@@ -570,7 +570,7 @@ class DocumentField(Field):
         '''
         try:
             self.validate_unwrap(value, fields=fields)
-        except BadValueException, bve:
+        except BadValueException as bve:
             return False
         return True
     
@@ -600,7 +600,7 @@ class DocumentField(Field):
         '''
         try:
             self.type.validate_unwrap(value, fields=fields, session=session)
-        except BadValueException, bve:
+        except BadValueException as bve:
             self._fail_validation(value, 'Bad value for DocumentField field', cause=bve)
 
 class BadIndexException(Exception):
